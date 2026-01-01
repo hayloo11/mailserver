@@ -1,0 +1,6 @@
+imapclient
+python-dotenv
+mail-parser
+fastapi
+requests
+uvicorn

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Temp Mail</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <div class="logo"> TEMPMAIL</div>
+</header>
+
+<main>
+  <section class="email-box">
+    <h2>Your Temporary Email Address</h2>
+
+    <div class="email-display">
+      <span id="email">Loading…</span>
+      <button id="copy" title="Copy"></button>
+    </div>
+
+    <div class="actions">
+      <button id="refresh"> Refresh</button>
+      <button id="change">✏️ Change</button>
+      <button id="delete">❌ Delete</button>
+    </div>
+  </section>
+
+  <section class="inbox">
+    <table>
+      <thead>
+        <tr>
+          <th>Sender</th>
+          <th>Subject</th>
+          <th>View</th>
+        </tr>
+      </thead>
+      <tbody id="messages">
+        <tr>
+          <td colspan="3" class="empty">Your inbox is empty</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="modal-inner">
+    <div class="modal-head">
+      <div>
+        <div class="modal-sub" id="mFrom"></div>
+        <div class="modal-title" id="mSubject"></div>
+      </div>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

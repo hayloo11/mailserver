@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Temp Mail</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .email {
+      background: #222;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .subject {
+      font-weight: bold;
+    }
+    .from {
+      font-size: 12px;
+      color: #aaa;
+    }
+    pre {
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Temp Mail</h1>
+
+<button onclick="newInbox()">New Inbox</button>
+
+<p id="address"></p>
+
+<div id="emails"></div>
+
+<script>
+const API_KEY = "supersecretkey123";
+const API_BASE = "";
+
+let inboxName = null;
+
+async function newInbox() {
+  const res = await fetch("/new", {
+    headers: { "X-API-Key": API_KEY }
+  });
+  const data = await res.json();
+
+  inboxName = data.name;
+  document.getElementById("address").innerText =
+    "Email: " + data.email;
+
+  document.getElementById("emails").innerHTML = "";
+}
+
+async function loadInbox() {
+  if (!inboxName) return;
+
+  const res = await fetch(`/inbox/${inboxName}`, {
+    headers: { "X-API-Key": API_KEY }
+  });
+  const data = await res.json();
+
+  const box = document.getElementById("emails");
+  box.innerHTML = "";
+
+  data.messages.forEach(m => {
+    const div = document.createElement("div");
+    div.className = "email";
+    div.innerHTML = `
+      <div class="subject">${m.subject || "(no subject)"}</div>
+      <div class="from">From: ${m.from}</div>
+      <pre>${m.text || ""}</pre>
+    `;
+    box.appendChild(div);
+  });
+}
+
+// refresh inbox every 5 seconds
+setInterval(loadInbox, 5000);
+</script>
+
+</body>
+</html>
